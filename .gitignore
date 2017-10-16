@@ -1,6 +1,8 @@
 Data_MSD/*
 act_env.sh
 Coursework/notebooks/*
+.idea/*
 
 *.pyc
 *.pckl
+
