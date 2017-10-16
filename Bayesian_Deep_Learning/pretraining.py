@@ -5,7 +5,6 @@ import time
 import tensorflow as tf
 import numpy as np
 from mlp.data_providers import MSD10GenreDataProvider, MSD25GenreDataProvider
-import matplotlib.pyplot as plt
 
 import pickle
 def load_from_file(filename):
@@ -24,7 +23,6 @@ def save_to_file(filename, object):
     f.close()
 
 train_data = MSD10GenreDataProvider('train', batch_size=50)
-train_data_2 = MSD10GenreDataProvider('train', batch_size=1)
 valid_data = MSD10GenreDataProvider('valid', batch_size=50)
 
 def fully_connected_layer(inputs, input_dim, output_dim, nonlinearity=tf.nn.relu):
@@ -58,8 +56,6 @@ def conv_layer_maxpooling(inputs, image_height, image_width, in_channels, out_ch
 
 inputs = tf.placeholder(tf.float32, [None, train_data.inputs.shape[1]], 'inputs')
 targets = tf.placeholder(tf.float32, [None, train_data.num_classes], 'targets')
-inputs_2 = tf.placeholder(tf.float32, [None, train_data_2.inputs.shape[1]], 'inputs')
-targets_2 = tf.placeholder(tf.float32, [None, train_data_2.num_classes], 'targets')
 num_hidden = 200
 kernels=50
 kernel_height=3
@@ -90,16 +86,13 @@ with tf.name_scope('accuracy'):
 with tf.name_scope('train'):
     train_step = tf.train.AdamOptimizer().minimize(error)
 
-#with tf.name_scope('newDataset'):
-#    train_step = tf.train.AdamOptimizer().minimize(error)
-
 init = tf.global_variables_initializer()
 
 with tf.Session() as sess:
     sess.run(init)
     err_val = {}
     acc_val = {}
-    for e in range(1):
+    for e in range(100):
         running_error = 0.
         running_accuracy = 0.
         run_start_time = time.time()
@@ -137,26 +130,11 @@ with tf.Session() as sess:
     biases_3_bestmodel = biases_3.eval()
     biases_4_bestmodel = biases_4.eval()
 
-# PROBABLEMENTE SEA MEJOR CREAR OTRO MODELO CON OTRA SESION!!!!.................................................
-    # we need to create a matrix of the values of the last layer!!!
-    third_layer_features = []
-    targets_to_store = []
-    for input_batch, target_batch in train_data_2:
-        batch_hidden_3, batch_targets = sess.run(
-            [hidden_3, targets], 
-            feed_dict={inputs_2: input_batch, targets_2: target_batch})
-        third_layer_features.append(batch_hidden_3)
-        targets_to_store.append(batch_targets)
-    third_layer_features = np.array(third_layer_features).T
-    targets_to_store = np.array(targets_to_store).T
-
-save_to_file('third_layer_features',  third_layer_features)
-save_to_file('targets_to_store',  targets_to_store)  
-save_to_file('hidden1_bestmodel',  hidden1_weights_bestmodel)
-save_to_file('hidden2_bestmodel',  hidden2_weights_bestmodel)    
-save_to_file('hidden3_bestmodel',  hidden3_weights_bestmodel)
-save_to_file('hidden4_bestmodel',  hidden4_weights_bestmodel)
-save_to_file('biases_1_bestmodel',  biases_1_bestmodel)
-save_to_file('biases_2_bestmodel',  biases_2_bestmodel)    
-save_to_file('biases_3_bestmodel',  biases_3_bestmodel)
-save_to_file('biases_4_bestmodel',  biases_4_bestmodel)
+save_to_file('data/hidden1_bestmodel',  hidden1_weights_bestmodel)
+save_to_file('data/hidden2_bestmodel',  hidden2_weights_bestmodel)
+save_to_file('data/hidden3_bestmodel',  hidden3_weights_bestmodel)
+save_to_file('data/hidden4_bestmodel',  hidden4_weights_bestmodel)
+save_to_file('data/biases_1_bestmodel',  biases_1_bestmodel)
+save_to_file('data/biases_2_bestmodel',  biases_2_bestmodel)
+save_to_file('data/biases_3_bestmodel',  biases_3_bestmodel)
+save_to_file('data/biases_4_bestmodel',  biases_4_bestmodel)

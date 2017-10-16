@@ -1,0 +1,6 @@
+Data_MSD/*
+act_env.sh
+Coursework/notebooks/*
+
+*.pyc
+*.pckl
