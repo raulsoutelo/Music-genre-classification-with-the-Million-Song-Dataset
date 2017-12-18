@@ -1,6 +1,6 @@
 # Music-genre-classification-with-the-Million-Song-Dataset
 
-In this project I have explored different topics in Deep Learning (such as network architecture, sparse models, sequential modelling, model combination, sequential modelling of different parts of the model and a bayesian approach) to predict the genre of a song with The Million Song Dataset.
+In this project I have explored different topics in Deep Learning (such as network architecture, sparse models, sequential modelling, model combination, sequential training of different parts of the model and a bayesian approach) to predict the genre of a song with The Million Song Dataset.
 
 The project (except the bayesian approach) has been developed as coursework for the Machine Learning Practical course at the University of Edinburgh (http://www.inf.ed.ac.uk/teaching/courses/mlp/index-2016.html). The data and a data provider to access the Million Song Dataset data have been provided by the teaching staff (more details in report.pdf).
 
