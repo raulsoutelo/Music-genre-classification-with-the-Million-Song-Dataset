@@ -9,7 +9,7 @@ I have decided to explore a Bayesian approach only for the weights of the last l
 
 In order to run this experiment, the next scripts are run:
 1) First, the model's parameters are fitted in a standard manner (non-bayesian). This is done with the model_training.py script.
-2) Second, the features_extraction.py will use the weights fitted to extract the hidden representation (hidden units of the last layer) for each data item of the training and validation sets. We will face the problem as a linear model from now onwards. 
+2) Second, the features_extraction.py script will use the weights fitted to extract the hidden representation (hidden units of the last layer) for each data item of the training and validation sets. We will face the problem as a linear model from now onwards. 
 3) Third (optional), we can use the prediction_checking.py script to validate that the performance of the new linear model is the same as the original Deep Learning model as expected (accuracy around 62%).
 4) Then, in the Bayesian_inference.py script we will use the emcee package to obtain samples from the probability distribution of the weights according to the the log-likelihood of the data (we use a flat prior, assuming nothing about the weights).
 5) Finally, in the Bayesian_prediction.py script we will average the predictions obtained with these samples to estimate the genre of each song. 
